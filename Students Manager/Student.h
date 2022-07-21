@@ -10,11 +10,14 @@ using namespace std;
 
 //Création de la classe Student
 class Student {
+    
     // Ajout des opérateurs d'entrée et de sortie
     friend istream& operator>>(istream&, Student&);
     friend ostream& operator<<(ostream&, const Student&);
     friend bool operator==(Student& v, Student& r);
     friend bool operator!=(Student& v, Student& r);
+
+
     static Student StudentInputForCreate() {
         int ID; string Name, Lname;
         cout << "What is the students ID? \n";
@@ -31,10 +34,37 @@ class Student {
         cin >> ID;
         return Student(ID);
     }
-    friend void DisplayAllStudents(vector<Student>& k) {
+    friend Student SearchStudentForUpdate(vector<Student>& k) {
+        Student t = StudentInputForSearch();
         for (auto x : k) {
-            cout << endl << x;
+            if (x.StudentID == t.StudentID)
+            {
+                return x;
+            }
+            else
+            {
+                cout << "The student doesn't exist, try again!" << endl;
+                SearchStudentForUpdate(k);
+            }
         }
+    };
+    static bool RequestToContinue() {
+        string res;
+        cout << "Would you like to add another student?(Yes or No)\n";
+        cin >> res;
+        res = toupper(res);
+        if (res == "NO")
+        {
+            return false;
+        }
+        /*else if (res == "no")
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }*/
     };
     friend void SearchStudent(vector<Student>& k) {
         Student t = StudentInputForSearch();
@@ -73,40 +103,9 @@ class Student {
         else
             std::cout << "Element Not Found" << std::endl;*/
     };
-    friend Student SearchStudentForUpdate(vector<Student>& k) {
-        Student t = StudentInputForSearch();
-        for (auto x : k) {
-            if (x.StudentID == t.StudentID)
-            {
-                return x;
-            }
-            else
-            {
-                cout << "The student doesn't exist, try again!" << endl;
-                SearchStudentForUpdate(k);
-            }
-        }
-    };
-    static bool requestToContinue() {
-        string res;
-        cout << "Would you like to add another student?(Yes or No)\n";
-        cin >> res;
-        if (res == "No")
-        {
-            return false;
-        }
-        else if (res == "no")
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    };
     friend void CreateStudent(Student& t, vector<Student>& k) {
         k.push_back(t);
-        bool b = requestToContinue();
+        bool b = RequestToContinue();
         //cout << boolalpha <<b;
         if (b == true) {
             CreateStudent(t, k);
@@ -120,7 +119,7 @@ class Student {
     friend void CreateStudent(vector<Student>& k) {
         Student t = StudentInputForCreate();
         k.push_back(t);
-        bool b = requestToContinue();
+        bool b = RequestToContinue();
         //cout << boolalpha<< b;
         if (b == true) {
             CreateStudent(k);
@@ -157,7 +156,7 @@ class Student {
         }
         DisplayAllStudents(k);
     };
-    friend void createTemplateList(vector<Student>& k) {
+    friend void CreateTemplateList(vector<Student>& k) {
         Student a = Student(1, "Lo", "Ad");
         Student b = Student(2, "Ka", "Af");
         Student c = Student(3, "Ma", "Gh");
@@ -168,13 +167,21 @@ class Student {
         k.push_back(d);
         DisplayAllStudents(k);
     };
+    friend void DisplayAllStudents(vector<Student>& k) {
+        for (auto x : k) {
+            cout << endl << x;
+        }
+    };
 public:
     //Définition des objets de la classe 
     int StudentID;
     string StudentName;
     string StudentFName;
 //Définition du construteur par défaut
-public:Student();
+public:Student(){
+
+};
+
 //Définition du constructeur paramètré
 public:Student(int ID, string Name, string FName) {
     StudentID = ID;

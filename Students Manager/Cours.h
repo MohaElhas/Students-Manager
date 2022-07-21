@@ -2,7 +2,6 @@
 #ifndef COURS_H
 #define COURS_H
 
-
 #include <string>
 #include <iostream>
 using namespace std;

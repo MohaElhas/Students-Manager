@@ -76,7 +76,6 @@ ostream& operator<<(ostream& ostr, const Cours& r) {
 	cout << ",";
 	ostr << r.CourseTitle;
 	cout << endl;
-
 	return ostr;
 }
 
