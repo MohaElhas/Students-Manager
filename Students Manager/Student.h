@@ -19,20 +19,18 @@ class Student {
 
 
     static Student StudentInputForCreate() {
-        int ID; string Name, Lname;
         cout << "What is the students ID? \n";
-        cin >> ID;
+        cin >> this.ID;
         cout << "What is the students name? \n";
-        cin >> Name;
+        cin >> this.Name;
         cout << "What is the students last name? \n";
-        cin >> Lname;
-        return Student(ID, Name, Lname);
+        cin >> this.Lname;
+        return Student(this.ID, this.Name, this.Lname);
     }
     static Student StudentInputForSearch() {
-        int ID;
-        cout << "What is the students ID? \n";
-        cin >> ID;
-        return Student(ID);
+        cout << "What is the student's ID? \n";
+        cin >> this.ID;
+        return Student(this.ID);
     }
     friend Student SearchStudentForUpdate(vector<Student>& k) {
         Student t = StudentInputForSearch();
@@ -156,6 +154,13 @@ class Student {
         }
         DisplayAllStudents(k);
     };
+
+        friend void DisplayAllStudents(vector<Student>& k) {
+        for (auto x : k) {
+            cout << endl << x;
+        }
+    };
+
     friend void CreateTemplateList(vector<Student>& k) {
         Student a = Student(1, "Lo", "Ad");
         Student b = Student(2, "Ka", "Af");
@@ -166,11 +171,6 @@ class Student {
         k.push_back(c);
         k.push_back(d);
         DisplayAllStudents(k);
-    };
-    friend void DisplayAllStudents(vector<Student>& k) {
-        for (auto x : k) {
-            cout << endl << x;
-        }
     };
 public:
     //Définition des objets de la classe 

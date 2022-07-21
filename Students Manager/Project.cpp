@@ -78,6 +78,7 @@ ostream& operator<<(ostream& ostr, const Cours& r) {
 	cout << endl;
 	return ostr;
 }
+bool operator==(const Cours& )
 
 //Flux d'entrée pour les élèments de types Notes
 istream& operator>>(istream& istr, Notes& r) {
