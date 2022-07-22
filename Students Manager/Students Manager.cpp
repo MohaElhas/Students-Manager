@@ -39,4 +39,6 @@ int main()
     vector<Student> ListOfStudents;
     vector<Notes> ListOfNotes;
     vector<Cours> ListOfCourses; 
+
+    cout<<"Truth"
 }
